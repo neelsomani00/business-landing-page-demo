@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acme — Modern Business Landing Page</title>
+  <meta name="description" content="Skeletal, modern, high-contrast landing page for a business. Fast, responsive, accessible." />
+  <meta name="keywords" content="business, landing page, modern, dark, high contrast, services" />
+  <meta name="author" content="Neel Somani" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Acme — Modern Business Landing Page" />
+  <meta property="og:description" content="Skeletal, modern, high-contrast landing page for a business." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com" />
+  <meta property="og:image" content="https://example.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <link rel="icon" href="data:image/svg+xml,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a0a0a'/><text x='50' y='58' font-size='52' text-anchor='middle' fill='%23ffffff' font-family='Arial, Helvetica, sans-serif'>A</text></svg>">
+
+  <style>
+    /* ==========================
+       Design System (Dark + Contrast)
+       ========================== */
+    :root{
+      --bg:#0b0c10;          /* base background */
+      --panel:#12141a;       /* card/nav background */
+      --text:#e6e6e6;        /* primary text */
+      --muted:#a9b0bd;       /* secondary text */
+      --fx-1:#6ae3ff;        /* accent 1 (cyan) */
+      --fx-2:#9d7bff;        /* accent 2 (violet) */
+      --fx-3:#22d3ee;        /* accent 3 (teal) */
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --ring:0 0 0 3px rgba(106,227,255,.35);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius-sm:12px;
+      --maxw:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(157,123,255,.15), transparent 60%),
+                  radial-gradient(1000px 500px at -10% 10%, rgba(106,227,255,.12), transparent 60%),
+                  var(--bg);
+      color:var(--text); line-height:1.6; 
+    }
+    a{color:var(--fx-1); text-decoration:none}
+    a:hover{opacity:.9}
+    img{max-width:100%; display:block}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+    /* ======= Navbar (sticky, glassy) ======= */
+    .nav-wrap{position:sticky; top:0; z-index:50; backdrop-filter: saturate(140%) blur(8px)}
+    nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 18px; margin:12px; border-radius:var(--radius);
+      background:color-mix(in srgb, var(--panel), transparent 15%);
+      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--fx-2),var(--fx-1));display:grid;place-items:center;color:#000;font-weight:900}
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{color:var(--text); opacity:.9}
+    .cta-btn{padding:10px 16px; border-radius:12px; font-weight:600; background:linear-gradient(90deg,var(--fx-1),var(--fx-2)); color:#0a0a0a; border:none}
+    .cta-btn:focus{outline:none; box-shadow:var(--ring)}
+
+    /* ======= Hero ======= */
+    header.hero{padding:96px 0 72px}
+    .hero-inner{display:grid; grid-template-columns:1.2fr 1fr; gap:36px; align-items:center}
+    .kicker{letter-spacing:.18em; text-transform:uppercase; font-size:.8rem; color:var(--muted)}
+    h1{font-size:clamp(2rem, 3.6vw + .5rem, 3.5rem); line-height:1.1; margin:10px 0 14px}
+    .lead{font-size:1.08rem; color:var(--muted); max-width:60ch}
+    .hero-actions{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
+    .ghost{padding:10px 16px; border-radius:12px; background:transparent; border:1px solid rgba(255,255,255,.14); color:var(--text)}
+    .metrics{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:26px}
+    .metric{padding:14px; border-radius:var(--radius-sm); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08)}
+    .metric b{font-size:1.2rem}
+
+    .hero-art{position:relative; isolation:isolate}
+    .blob{position:absolute; inset:auto 0 0 auto; width:220px; height:220px; border-radius:50%; filter:blur(40px); opacity:.6; background:radial-gradient(circle at 30% 30%, var(--fx-1), transparent 60%), radial-gradient(circle at 70% 70%, var(--fx-2), transparent 60%)}
+    .card-hero{position:relative; padding:22px; border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.1); box-shadow:var(--shadow)}
+
+    /* ======= Sections ======= */
+    section{padding:72px 0}
+    .section-head{display:flex; align-items:end; justify-content:space-between; margin-bottom:26px}
+    .section-head h2{margin:0; font-size:clamp(1.4rem, 2.2vw + .5rem, 2.2rem)}
+    .muted{color:var(--muted)}
+
+    /* About / Value */
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); font-size:.85rem}
+
+    /* Services */
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .card{padding:18px; border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); transition:transform .2s ease, border-color .2s ease}
+    .card:hover{transform:translateY(-6px); border-color:rgba(255,255,255,.18)}
+    .icon{width:36px;height:36px;border-radius:10px; display:grid; place-items:center; background:linear-gradient(135deg,var(--fx-1),var(--fx-2)); color:#0a0a0a; font-weight:900}
+
+    /* CTA band */
+    .cta-band{padding:28px; border-radius:18px; display:flex; align-items:center; justify-content:space-between; gap:16px; background:linear-gradient(90deg, rgba(106,227,255,.12), rgba(157,123,255,.12)); border:1px solid rgba(255,255,255,.12)}
+
+    /* Testimonials (skeleton slots) */
+    .logos{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; opacity:.8}
+    .logo-skel{height:46px; border-radius:12px; background:linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.08)}
+
+    /* Contact */
+    form{display:grid; gap:12px}
+    input, textarea{background:#0d0f14; border:1px solid rgba(255,255,255,.13); border-radius:12px; padding:12px 14px; color:var(--text)}
+    input:focus, textarea:focus{outline:none; box-shadow:var(--ring); border-color:transparent}
+    textarea{min-height:120px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+
+    /* Footer */
+    footer{padding:32px 0 60px; color:var(--muted)}
+    .foot{
+      border-top:1px solid rgba(255,255,255,.08); padding-top:18px; display:flex; gap:12px; align-items:center; justify-content:space-between
+    }
+    .social{display:flex; gap:10px}
+    .social a{display:inline-grid; place-items:center; width:36px; height:36px; border-radius:10px; border:1px solid rgba(255,255,255,.12)}
+
+    /* Utilities */
+    .hidden{opacity:0; transform:translateY(14px); transition: all .6s ease}
+    .reveal{opacity:1; transform:none}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .logos{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 640px){
+      nav{margin:8px}
+      .cards{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .cta-band{flex-direction:column; align-items:flex-start}
+      .logos{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+
+  <!-- Minimal Schema.org (Organization) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Acme",
+      "url": "https://example.com",
+      "logo": "https://example.com/logo.png"
+    }
+  </script>
+</head>
+<body>
+  <!-- Progress bar -->
+  <div id="progress" style="position:fixed;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--fx-2),var(--fx-1));width:0%;z-index:60;"></div>
+
+  <!-- NAVBAR -->
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Primary">
+      <div class="brand"><span class="logo" aria-hidden="true">A</span> <span>Acme</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero container">
+    <div class="hero-inner">
+      <div>
+        <div class="kicker hidden">Trusted by teams</div>
+        <h1 class="hidden">Move faster with a modern, high‑contrast landing page.</h1>
+        <p class="lead hidden">We help individuals, startups, and general users launch credible web presence in days, not weeks — with clean design, clear copy, and measurable outcomes.</p>
+        <div class="hero-actions hidden">
+          <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Quote</button>
+          <button class="ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">See Services</button>
+        </div>
+        <div class="metrics">
+          <div class="metric hidden"><b>98%</b><div class="muted">Lighthouse Perf.</div></div>
+          <div class="metric hidden"><b><span id="statSites">120</span>+</b><div class="muted">Projects shipped</div></div>
+          <div class="metric hidden"><b>&lt;1s</b><div class="muted">Time to Interactive</div></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="card-hero hidden">
+          <h3 style="margin:0 0 6px">Your site, simplified</h3>
+          <p class="muted" style="margin:0 0 10px">Skeletal UI that communicates value without noise.</p>
+          <ul style="margin:0; padding-left:18px">
+            <li>Accessible, responsive layout</li>
+            <li>SEO‑ready head tags</li>
+            <li>Form ready (Formspree placeholder)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT / VALUE PROP -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>Clear value, minimal fluff</h2>
+        <span class="pill">Modern • Dark • High Contrast</span>
+      </div>
+      <div class="grid-2">
+        <div class="hidden">
+          <p class="muted">A focused landing page that highlights your proposition with crisp typography, subtle effects, and fast performance. Built to convert without overwhelming the visitor.</p>
+          <ul>
+            <li>Structured sections: Hero, About, Services, CTA, Contact</li>
+            <li>Polished micro‑interactions and hover states</li>
+            <li>Production‑grade semantics and accessibility</li>
+          </ul>
+        </div>
+        <div class="hidden">
+          <div class="cta-band">
+            <div>
+              <strong>Ready to launch?</strong>
+              <div class="muted">Tell us your goal — we’ll map a straight path.</div>
+            </div>
+            <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / OFFERINGS -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>What we deliver</h2>
+        <span class="muted">Clean, credible, conversion‑ready</span>
+      </div>
+      <div class="cards">
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">UI</div>
+          <h3>Modern UI</h3>
+          <p class="muted">Dark, high‑contrast visuals with focus on clarity and hierarchy.</p>
+        </div>
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">FX</div>
+          <h3>Subtle Effects</h3>
+          <p class="muted">Smooth reveals & hovers that feel premium but stay performant.</p>
+        </div>
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">SEO</div>
+          <h3>SEO‑Ready</h3>
+          <p class="muted">Best‑practice head tags, semantic HTML, and quick load.</p>
+        </div>
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">FRM</div>
+          <h3>Contact Form</h3>
+          <p class="muted">Formspree placeholder wired for instant lead capture.</p>
+        </div>
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">SOC</div>
+          <h3>Social Links</h3>
+          <p class="muted">LinkedIn, GitHub, and more — easy to customize.</p>
+        </div>
+        <div class="card hidden">
+          <div class="icon" aria-hidden="true">SPD</div>
+          <h3>Speed First</h3>
+          <p class="muted">Minimal JS, optimized CSS, and careful asset choices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / LOGOS (skeleton placeholders) -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Trusted by teams</h2>
+        <span class="muted">Swap these placeholders with your client logos</span>
+      </div>
+      <div class="logos">
+        <div class="logo-skel hidden"></div>
+        <div class="logo-skel hidden"></div>
+        <div class="logo-skel hidden"></div>
+        <div class="logo-skel hidden"></div>
+        <div class="logo-skel hidden"></div>
+        <div class="logo-skel hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section>
+    <div class="container">
+      <div class="cta-band hidden">
+        <div>
+          <h3 style="margin:0 0 6px">Let’s make it real.</h3>
+          <div class="muted">One page. One clear message. One strong result.</div>
+        </div>
+        <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Proposal</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <span class="muted">We respond within 1 business day</span>
+      </div>
+      <form action="https://formspree.io/f/your-id" method="POST">
+        <div class="grid-3">
+          <input aria-label="Your name" name="name" placeholder="Your name" required>
+          <input aria-label="Your email" type="email" name="email" placeholder="Email" required>
+          <input aria-label="Budget" name="budget" placeholder="Budget (optional)">
+        </div>
+        <textarea aria-label="Project details" name="message" placeholder="Tell us about your project…" required></textarea>
+        <button class="cta-btn" type="submit">Send Message</button>
+        <div class="muted" style="font-size:.85rem">* Replace <code>your-id</code> with your Formspree ID.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container foot">
+      <div class="brand"><span class="logo" aria-hidden="true">A</span> <span>Acme</span></div>
+      <div class="social" aria-label="Social links">
+        <a href="https://linkedin.com" aria-label="LinkedIn">in</a>
+        <a href="https://github.com" aria-label="GitHub">gh</a>
+        <a href="#" aria-label="X / Twitter">x</a>
+      </div>
+      <div>© <span id="year"></span> Acme. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Year + simple stat tick
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const statEl = document.getElementById('statSites');
+    let n = 118; const tick = () => { n++; if(n<=120) { statEl.textContent = n; requestAnimationFrame(tick);} }; requestAnimationFrame(tick);
+
+    // Scroll progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll',()=>{
+      const h = document.documentElement; const sc = h.scrollTop; const max = h.scrollHeight - h.clientHeight; const p = (sc/max)*100; progress.style.width = p + '%';
+    });
+
+    // Reveal on view
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target);} });
+    },{threshold: .12});
+    document.querySelectorAll('.hidden').forEach(el=>io.observe(el));
+  </script>
+
+  <!--
+    Handoff Notes (for client)
+    - Replace brand name, favicon, OG image, logo.
+    - Update Formspree endpoint.
+    - Swap logo placeholders in the Logos section.
+    - Copy is intentionally minimal; expand sections as needed.
+  -->
+</body>
+</html>
